@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Fruit Recognition</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+
+        .container {
+            display: flex;
+            align-items: stretch;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .form-container {
+            margin-bottom: 50px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .blue-cell {
+            border: 3px solid rgb(100, 200, 225);
+            height: 200px;
+            width: 200px;
+        }
+
+        .image-cell {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-cell img {
+            height: 200px;
+            width: 200px;
+            object-fit: contain;
+        }
+
+        .fruit-labels {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .fruit-chart {
+            width: 300px;
+            height: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form method="post" enctype="multipart/form-data" action="/">
+                <input type="text" name="image_url" placeholder="Image URL">
+                <input type="submit" value="Load">
+            </form>
+        </div>
+        {% if labels %}
+            <div class="image-container">
+                <table>
+                    <tr>
+                        <td class="blue-cell">
+                            <div class="fruit-labels">
+                                <canvas id="fruit-chart" class="fruit-chart"></canvas>
+                            </div>
+                        </td>
+                        <td class="image-cell">
+                            <img src="data:image/jpeg;base64,{{ img }}" alt="Uploaded Image">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var labels = [
+            {% for label, probability in labels %}
+                "{{ label }}",
+            {% endfor %}
+        ];
+
+        var probabilities = [
+            {% for label, probability in labels %}
+                {{ probability }},
+            {% endfor %}
+        ];
+        var fruit_labels = [
+            "apple",
+            "banana",
+            "beetroot",
+            "cabbage",
+            "carrot",
+            "cauliflower",
+            "chilli pepper",
+            "corn",
+            "cucumber",
+            "eggplant",
+            "garlic",
+            "ginger",
+            "grapes",
+            "jalepeno",
+            "kiwi",
+            "lemon",
+            "lettuce",
+            "mango",
+            "onion",
+            "orange",
+            "pear",
+            "pesa",
+            "pepper",
+            "pineapple",
+            "pomegranate",
+            "potato",
+            "raddish",
+            "soy beans",
+            "spinach",
+            "sweetcorn",
+            "sweetpotato",
+            "tomato",
+            "turnip",
+            "watermelon",
+        ]; 
+
+        var colors = [
+            'rgb( 208, 65, 46)',
+            'rgb( 255, 216, 0)',
+            'rgb( 141, 0, 0)',
+            'rgb( 102, 156, 7)',
+            'rgb( 255, 120, 0)',
+            'rgb( 255, 234, 164)',
+            'rgb( 255, 0, 0 )',
+            'rgb( 255, 237, 60)',
+            'rgb( 134, 202, 24)',
+            'rgb( 118, 0, 147)',
+            'rgb( 252, 240, 255 )',
+            'rgb( 210, 207, 167)',
+            'rgb( 196, 255, 105)',
+            'rgb( 119, 197, 0)',
+            'rgb( 144, 87, 59)',
+            'rgb( 255, 240, 0)',
+            'rgb( 197, 255, 0)',
+            'rgb( 255, 182, 54)',
+            'rgb( 255, 252, 186)',
+            'rgb( 255, 143, 0 )',
+            'rgb( 195, 255, 102 )',
+            'rgb( 103, 220, 11 )',
+            'rgb( 236, 3, 3 )',
+            'rgb( 255, 232, 34 )',
+            'rgb( 255, 71, 71)',
+            'rgb( 195, 145, 92)',
+            'rgb( 254, 16, 66 )',
+            'rgb( 252, 180, 2)',
+            'rgb( 21, 147, 4 )',
+            'rgb( 255, 228, 2 )',
+            'rgb( 175, 78, 34 )',
+            'rgb( 255, 0, 0)',
+            'rgb( 255, 126, 243 )',
+            'rgb( 90, 160, 0 )',
+        ];
+
+        var colorsMap = {};
+
+        for (var i = 0; i < fruit_labels.length; i++) {
+            colorsMap[fruit_labels[i]] = colors[i];
+        }
+
+        var backgroundColors = labels.map(function(label) {
+            return colorsMap[label];
+        });
+
+        var ctx = document.getElementById('fruit-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            tooltip: { enable: true },
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Probabilities',
+                    data: probabilities,
+                    backgroundColor: backgroundColors,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>
