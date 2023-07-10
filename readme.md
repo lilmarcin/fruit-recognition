@@ -60,11 +60,19 @@ Fruit images dataset was downloaded from [Kaggle](https://www.kaggle.com/dataset
 
 ## Screenshots
 
+- Check model on test dataset
+![Screenshot](output_images/test_output_96.png)
+
+- Check model on different images 
+![Screenshot](output_images/test_output_random_images.png)
+
+- Top 3 predicted classes
 ![Screenshot](output_images/flask_output_apple.png)
 
 ![Screenshot](output_images/flask_output_garlic.png)
 
 ![Screenshot](output_images/flask_output_pepper.png)
 
+![Screenshot](output_images/flask_output_lemon.png)
 ## License
 MIT License
