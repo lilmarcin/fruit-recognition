@@ -7,42 +7,10 @@ This project is a web application that recognizes fruits/vegetables.
 Fruit images dataset was downloaded from [Kaggle](https://www.kaggle.com/datasets/kritikseth/fruit-and-vegetable-image-recognition). Dataset contains images of the following food items:
 
 - Fruits:
-  - banana
-  - apple
-  - pear
-  - grapes
-  - orange
-  - kiwi
-  - watermelon
-  - pomegranate
-  - pineapple
-  - mango
+  banana, apple, pear, grapes, orange, kiwi, watermelon, pomegranate, pineapple, mango
 
 - Vegetables:
-  - cucumber
-  - carrot
-  - onion
-  - potato
-  - lemon
-  - tomato
-  - raddish
-  - beetroot
-  - cabbage
-  - lettuce
-  - spinach
-  - soy bean
-  - cauliflower
-  - pepper
-  - chilli pepper
-  - turnip
-  - corn
-  - sweetcorn
-  - sweet potato
-  - jalepeño
-  - ginger
-  - garlic
-  - peas
-  - eggplant
+  cucumber, carrot, onion, potato, lemon, tomato, raddish, beetroot, cabbage, lettuce, spinach, soy bean, cauliflower, pepper, chilli pepper, turnip, corn, sweetcorn, sweet potato, jalepeño, ginger, garlic, peas, eggplant
 
 
 
